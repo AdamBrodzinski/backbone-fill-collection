@@ -5,7 +5,7 @@ Backbone-Fill-Collection makes it easy to generate collections with mock data qu
 It sends requests to [filltext.com](http://filltext.com/) and inserts the results into a backbone collection on every fetch.
 
 ## Download
-[download master/edge](https://raw.github.com/AdamBrodzinski/backbone-fill-collection//master/backbone.backbone-fill-collection.js)
+[download master/edge](https://github.com/AdamBrodzinski/backbone-fill-collection/raw/master/backbone-fill-collection.js)
 
 ## Usage
 
