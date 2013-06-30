@@ -1,0 +1,130 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Backbone-fill-collection by AdamBrodzinski</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Backbone-fill-collection</h1>
+        <p>A Backbone plugin that fills collections with mock data with every fetch.</p>
+
+        <p class="view"><a href="https://github.com/AdamBrodzinski/backbone-fill-collection">View the Project on GitHub <small>AdamBrodzinski/backbone-fill-collection</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/AdamBrodzinski/backbone-fill-collection/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/AdamBrodzinski/backbone-fill-collection/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/AdamBrodzinski/backbone-fill-collection">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a name="backbone-fill-collection" class="anchor" href="#backbone-fill-collection"><span class="octicon octicon-link"></span></a>backbone-fill-collection</h1>
+
+<p>Backbone-Fill-Collection makes it easy to generate collections with mock data quickly for prototyping.
+It sends requests to <a href="http://filltext.com/">filltext.com</a> and inserts the results into a backbone collection on every fetch.</p>
+
+<h2>
+<a name="download" class="anchor" href="#download"><span class="octicon octicon-link"></span></a>Download</h2>
+
+<p><a href="https://github.com/AdamBrodzinski/backbone-fill-collection/raw/master/backbone-fill-collection.js">download master/edge</a></p>
+
+<h2>
+<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h2>
+
+<p>Extend a collection from <code>Backbone.FillCollection</code> and insert a <code>fillWith</code> property with a hash of parameters. 
+The key will become the models key and it's value can be static or mocked with the FillText params. A full list of 
+FillText's params can be found on their <a href="http://filltext.com/">website</a>.</p>
+
+<div class="highlight"><pre>
+<span class="nx">User</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">Model</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+  <span class="nx">defaults</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">name</span><span class="o">:</span> <span class="s1">'n/a'</span><span class="p">,</span>
+    <span class="nx">age</span><span class="o">:</span> <span class="s1">'n/a'</span><span class="p">,</span>
+    <span class="nx">homeTown</span><span class="o">:</span> <span class="s1">'n/a'</span><span class="p">,</span>
+    <span class="nx">email</span><span class="o">:</span> <span class="s1">'n/a'</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+
+<span class="nx">Users</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">FillCollection</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+  <span class="nx">model</span><span class="o">:</span> <span class="nx">User</span><span class="p">,</span>
+
+  <span class="nx">fillWith</span><span class="o">:</span> <span class="p">{</span>
+    <span class="c1">// optional number of models to return, defaults to 5</span>
+    <span class="nx">rows</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span>
+
+    <span class="nx">name</span><span class="o">:</span> <span class="s1">'{firstName}'</span><span class="p">,</span>
+    <span class="nx">homeTown</span><span class="o">:</span> <span class="s1">'{city}'</span><span class="p">,</span>
+    <span class="nx">email</span><span class="o">:</span> <span class="s1">'{email}'</span><span class="p">,</span>
+    <span class="nx">type</span><span class="o">:</span> <span class="s1">'user'</span>
+  <span class="p">}</span>
+<span class="p">});</span>    
+
+</pre></div>
+
+<h4>
+<a name="outputs" class="anchor" href="#outputs"><span class="octicon octicon-link"></span></a><em>Outputs</em>
+</h4>
+
+<div class="highlight"><pre><span class="nx">users</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">app</span><span class="p">.</span><span class="nx">Users</span><span class="p">();</span>
+<span class="nx">users</span><span class="p">.</span><span class="nx">fetch</span><span class="p">();</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">users</span><span class="p">.</span><span class="nx">toJSON</span><span class="p">());</span>
+<span class="c1">// logs:</span>
+
+<span class="p">[</span>
+  <span class="nb">Object</span>
+    <span class="nx">age</span><span class="o">:</span> <span class="s2">"n/a"</span>
+    <span class="nx">email</span><span class="o">:</span> <span class="s2">"KSherstan@sit.net"</span>
+    <span class="nx">homeTown</span><span class="o">:</span> <span class="s2">"Stl"</span>
+    <span class="nx">name</span><span class="o">:</span> <span class="s2">"Alonzo"</span>
+    <span class="nx">type</span><span class="o">:</span> <span class="s2">"user"</span>
+    <span class="nx">__proto__</span><span class="o">:</span> <span class="nb">Object</span>
+  <span class="p">,</span> 
+  <span class="nb">Object</span>
+    <span class="nx">age</span><span class="o">:</span> <span class="s2">"n/a"</span>
+    <span class="nx">email</span><span class="o">:</span> <span class="s2">"JWallace@neque.com"</span>
+    <span class="nx">homeTown</span><span class="o">:</span> <span class="s2">"Fort Collins"</span>
+    <span class="nx">name</span><span class="o">:</span> <span class="s2">"Marina"</span>
+    <span class="nx">type</span><span class="o">:</span> <span class="s2">"user"</span>
+    <span class="nx">__proto__</span><span class="o">:</span> <span class="nb">Object</span>
+  <span class="p">,</span> 
+  <span class="nb">Object</span>
+    <span class="nx">age</span><span class="o">:</span> <span class="s2">"n/a"</span>
+    <span class="nx">email</span><span class="o">:</span> <span class="s2">"GRamirez@tellus.org"</span>
+    <span class="nx">homeTown</span><span class="o">:</span> <span class="s2">"Siloam Springs"</span>
+    <span class="nx">name</span><span class="o">:</span> <span class="s2">"Rick"</span>
+    <span class="nx">type</span><span class="o">:</span> <span class="s2">"user"</span>
+    <span class="nx">__proto__</span><span class="o">:</span> <span class="nb">Object</span>
+<span class="p">]</span>
+</pre></div>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/AdamBrodzinski">AdamBrodzinski</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-38075559-4");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+  </body>
+</html>
