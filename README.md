@@ -15,7 +15,7 @@ FillText's params can be found on their [website](http://filltext.com/).
 
 ```javascript
 
-User = Backbone.Model.extend({
+var User = Backbone.Model.extend({
   defaults: {
     name: 'n/a',
     age: 'n/a',
@@ -24,7 +24,7 @@ User = Backbone.Model.extend({
   }
 });
 
-Users = Backbone.FillCollection.extend({
+var Users = Backbone.FillCollection.extend({
   model: User,
 
   fillWith: {
@@ -41,7 +41,7 @@ Users = Backbone.FillCollection.extend({
 ```
 #### *Outputs*
 ```javascript
-users = new app.Users();
+users = new Users();
 users.fetch();
 
 console.log(users.toJSON());
